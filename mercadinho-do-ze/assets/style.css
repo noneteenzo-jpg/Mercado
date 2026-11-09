@@ -9,3 +9,68 @@
 @media(max-width:1150px){.stats-grid{grid-template-columns:repeat(2,1fr)}.content-grid{grid-template-columns:1fr}.category-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:760px){.sidebar{transform:translateX(-100%);transition:transform .25s}.sidebar.sidebar-open{transform:translateX(0);box-shadow:12px 0 30px #24143233}.main-area{margin-left:0}.topbar{height:60px;padding:0 17px}.menu-toggle{display:block;color:var(--roxo)}.breadcrumb{margin-right:auto;margin-left:12px;font-size:10px}.topbar-right>span:not(.status-dot){display:none}.page-content{padding:25px 16px 30px}.welcome-row{align-items:flex-start;flex-direction:column}.welcome-row h1{font-size:24px}.welcome-row>.btn{align-self:stretch}.stats-grid{gap:10px}.stat-card{padding:14px}.stat-card>strong{font-size:25px}.panel{padding:15px}.filters{align-items:stretch}.search-box{flex-basis:100%}.filters select{flex:1;max-width:none}.filters .btn{flex:1}.category-grid{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.detail-head{flex-wrap:wrap}.detail-head>.btn{width:100%}.footer{padding:14px 16px}.footer span{float:none;display:block;margin-top:5px}}
 @media(max-width:390px){.stats-grid{grid-template-columns:1fr 1fr}.stat-label{font-size:7px}.stat-card p{font-size:10px}}
+
+
+/* ==========================================================
+   TIPOGRAFIA — leitura mais confortável e melhor contraste
+   ========================================================== */
+body {
+    font-size: 16px;
+    line-height: 1.55;
+}
+
+.brand strong { font-size: 17px; }
+.brand small { font-size: 11px; letter-spacing: 1px; }
+.nav-caption { font-size: 11px; }
+.nav-link { font-size: 15px; }
+.help-card strong { font-size: 14px; }
+.help-card p { font-size: 13px; }
+.sidebar-foot { font-size: 12px; }
+.breadcrumb { font-size: 14px; }
+.topbar-right { font-size: 13px; }
+.eyebrow { font-size: 11px; }
+.welcome-row h1 { font-size: 30px; }
+.muted { font-size: 14px; }
+.btn { font-size: 14px; min-height: 44px; }
+.stat-label { font-size: 10px; }
+.stat-card p { font-size: 13px; }
+.stat-card > a { font-size: 12px; }
+.panel-heading h2 { font-size: 17px; }
+.panel-heading p { font-size: 13px; }
+.text-link { font-size: 12px; }
+th { font-size: 10px; }
+td { font-size: 13px; }
+td strong { font-size: 14px; }
+.cell-sub { font-size: 11px; }
+.pill { font-size: 10px; padding: 5px 9px; }
+.quick-action strong { font-size: 14px; }
+.quick-action small { font-size: 12px; }
+.tip-box strong { font-size: 13px; }
+.tip-box p { font-size: 12px; line-height: 1.65; }
+.empty-state strong { font-size: 15px; }
+.empty-state p { font-size: 13px; }
+.search-box input { font-size: 14px; }
+.filters select { font-size: 13px; }
+.code-tag { font-size: 11px; }
+.category-card h3 { font-size: 15px; }
+.category-card p { font-size: 13px; }
+.category-actions a,
+.category-actions button { font-size: 12px; }
+.field label { font-size: 13px; }
+.field input,
+.field select,
+.field textarea { font-size: 14px; min-height: 44px; }
+.field small { font-size: 11px; }
+.alert { font-size: 14px; }
+.detail-head h2 { font-size: 21px; }
+.detail-head p { font-size: 13px; }
+.detail-item small { font-size: 10px; }
+.detail-item strong { font-size: 15px; }
+.detail-item p { font-size: 13px; }
+.footer { font-size: 11px; }
+
+@media (max-width: 760px) {
+    .welcome-row h1 { font-size: 26px; }
+    .breadcrumb { font-size: 12px; }
+    .stat-label { font-size: 9px; }
+}

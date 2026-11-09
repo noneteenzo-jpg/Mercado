@@ -1,0 +1,69 @@
+<?php
+require_once __DIR__ . '/../config/database.php';
+$tituloPagina = 'Cadastro de categoria';
+$base = '../';
+$id = (int)($_GET['id'] ?? 0);
+$nome = '';
+$descricao = '';
+$erros = [];
+if ($id) {
+    $st = $pdo->prepare('SELECT * FROM categorias WHERE id=?');
+    $st->execute([$id]);
+    $c = $st->fetch();
+    if (!$c) {
+        flash('error', 'Categoria não encontrada.');
+        header('Location: index.php');
+        exit;
+    }
+    $nome = $c['nome'];
+    $descricao = $c['descricao'] ?? '';
+    $tituloPagina = 'Editar categoria';
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    validarCsrf();
+    $nome = trim($_POST['nome'] ?? '');
+    $descricao = trim($_POST['descricao'] ?? '');
+    if ($nome === '') $erros[] = 'Informe o nome da categoria.';
+    if (mb_strlen($nome) > 80) $erros[] = 'O nome deve ter até 80 caracteres.';
+    $dup = $pdo->prepare('SELECT COUNT(*) FROM categorias WHERE nome=? AND id<>?');
+    $dup->execute([$nome, $id]);
+    if ($dup->fetchColumn()) $erros[] = 'Já existe uma categoria com esse nome.';
+    if (!$erros) {
+        if ($id) {
+            $st = $pdo->prepare('UPDATE categorias SET nome=?,descricao=? WHERE id=?');
+            $st->execute([$nome, $descricao ?: null, $id]);
+        } else {
+            $st = $pdo->prepare('INSERT INTO categorias(nome,descricao) VALUES(?,?)');
+            $st->execute([$nome, $descricao ?: null]);
+        }
+        flash('success', $id ? 'Categoria atualizada com sucesso!' : 'Categoria cadastrada com sucesso!');
+        header('Location: index.php');
+        exit;
+    }
+}
+require __DIR__ . '/../includes/header.php';
+?>
+<div class="welcome-row">
+    <div>
+        <div class="eyebrow">ORGANIZAÇÃO / CATEGORIAS</div>
+        <h1><?= $id ? 'Editar categoria' : 'Nova categoria' ?></h1>
+        <p class="muted">Use categorias para manter seu estoque organizado.</p>
+    </div><a class="btn btn-light" href="index.php">← Voltar para categorias</a>
+</div>
+<section class="panel form-panel">
+    <div class="panel-heading">
+        <div>
+            <h2>Informações da categoria</h2>
+            <p>O nome é obrigatório e não pode se repetir.</p>
+        </div>
+    </div><?php if ($erros): ?><div class="alert alert-error">
+            <ul><?php foreach ($erros as $erro): ?><li><?= e($erro) ?></li><?php endforeach; ?></ul>
+        </div><?php endif; ?><form method="post" class="data-form"><input type="hidden" name="csrf_token" value="<?= e(csrfToken()) ?>">
+        <div class="form-grid">
+            <div class="field full"><label>Nome da categoria *</label><input name="nome" maxlength="80" required value="<?= e($nome) ?>" placeholder="Ex.: Mercearia"></div>
+            <div class="field full"><label>Descrição</label><textarea name="descricao" rows="4" maxlength="255" placeholder="Descreva os produtos desta categoria..."><?= e($descricao) ?></textarea></div>
+        </div>
+        <div class="form-actions"><a class="btn btn-light" href="index.php">Cancelar</a><button class="btn btn-primary" type="submit"><?= $id ? 'Salvar alterações' : 'Cadastrar categoria' ?></button></div>
+    </form>
+</section>
+<?php require __DIR__ . '/../includes/footer.php'; ?>
