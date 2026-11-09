@@ -1,4 +1,8 @@
 <?php
+// Carrega as funções compartilhadas (sessão, CSRF, mensagens e formatação)
+// antes de qualquer processamento das páginas.
+require_once __DIR__ . '/../includes/functions.php';
+
 /**
  * CONEXÃO E INSTALAÇÃO AUTOMÁTICA DO BANCO
  *
