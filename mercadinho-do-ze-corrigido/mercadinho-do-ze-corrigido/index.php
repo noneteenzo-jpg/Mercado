@@ -8,7 +8,7 @@ $vencidos = (int)$pdo->query('SELECT COUNT(*) FROM produtos WHERE validade IS NO
 $recentes = $pdo->query('SELECT p.id,p.codigo,p.nome,p.preco,p.estoque,p.estoque_minimo,c.nome AS categoria FROM produtos p JOIN categorias c ON c.id=p.categoria_id ORDER BY p.id DESC LIMIT 6')->fetchAll();
 require __DIR__ . '/includes/header.php';
 ?>
-<div class="welcome-row"><div><div class="eyebrow">PAINEL DE CONTROLE</div><h1>Bom dia! 👋</h1><p class="muted">Aqui está o resumo do seu mercadinho. Vamos manter tudo organizado?</p></div><a class="btn btn-primary" href="produtos/form.php">＋ Cadastrar produto</a></div>
+<div class="welcome-row"><div><div class="eyebrow">PAINEL DE CONTROLE</div><p class="muted">Aqui está o resumo do seu mercadinho. Vamos manter tudo organizado?</p></div><a class="btn btn-primary" href="produtos/form.php">＋ Cadastrar produto</a></div>
 <div class="stats-grid">
     <article class="stat-card"><div class="stat-top"><span class="stat-icon purple">▦</span><span class="stat-label">CADASTRADOS</span></div><strong><?= $totalProdutos ?></strong><p>Produtos no sistema</p><a href="produtos/index.php">Ver produtos →</a></article>
     <article class="stat-card"><div class="stat-top"><span class="stat-icon teal">▤</span><span class="stat-label">ORGANIZAÇÃO</span></div><strong><?= $totalCategorias ?></strong><p>Categorias cadastradas</p><a href="categorias/index.php">Ver categorias →</a></article>
