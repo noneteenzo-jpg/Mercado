@@ -36,3 +36,40 @@ function dataValida(?string $data): bool {
     $d = DateTime::createFromFormat('Y-m-d', $data);
     return $d && $d->format('Y-m-d') === $data;
 }
+/**
+ * Valida o token CSRF para proteger formulários.
+ */
+function validarCsrf(): void
+{
+    if (session_status() !== PHP_SESSION_ACTIVE) {
+        session_start();
+    }
+
+    $tokenSessao = $_SESSION['csrf_token'] ?? '';
+    $tokenFormulario = $_POST['csrf_token'] ?? '';
+
+    if (
+        empty($tokenSessao) ||
+        empty($tokenFormulario) ||
+        !hash_equals($tokenSessao, $tokenFormulario)
+    ) {
+        http_response_code(403);
+        die('Erro de segurança: token CSRF inválido. Atualize a página e tente novamente.');
+    }
+}
+
+/**
+ * Gera ou recupera o token CSRF.
+ */
+function csrfToken(): string
+{
+    if (session_status() !== PHP_SESSION_ACTIVE) {
+        session_start();
+    }
+
+    if (empty($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+
+    return $_SESSION['csrf_token'];
+}
